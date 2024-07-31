@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
@@ -23,8 +24,10 @@ export default function RootLayout({
       <body className={`${monteserrat.className} antialiased`}>
         <Theme accentColor="ruby" grayColor="sand">
           <Announcement />
-          <NavBar/>
-          {children}
+          <NavBar />
+          <div className="overflow-y-auto h-screen">
+            {children}
+          </div>
         </Theme>
       </body>
     </html>
