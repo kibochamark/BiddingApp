@@ -23,8 +23,10 @@ export default function RootLayout({
       <body className={`${monteserrat.className} antialiased`}>
         <Theme accentColor="ruby" grayColor="sand">
           <Announcement />
-          <NavBar/>
-          {children}
+           <NavBar />
+          <div className="overflow-y-auto h-screen">
+            {children}
+          </div>
         </Theme>
       </body>
     </html>
