@@ -1,35 +1,39 @@
-/* eslint-disable react/jsx-no-undef */
-import type { Metadata } from "next";
-import { Inter, Montserrat } from "next/font/google";
-import "./globals.css";
-import '@radix-ui/themes/styles.css';
-import { Theme } from '@radix-ui/themes';
-import Announcement from "@/components/announcement";
-import NavBar from "@/components/layout/NavBar";
+import type React from "react"
+import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
+import { AuthProvider } from "@/lib/auth-context"
+import { CartProvider } from "@/lib/cart-context"
+import "./globals.css"
+import { Footer } from "@/components/footer"
+import { Navigation } from "@/components/navigation"
 
-const monteserrat = Montserrat({ subsets: ["latin"], weight: "200" });
+const _geist = Geist({ subsets: ["latin"] })
+const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "BidGizmo",
-  description: "BidGizmo is your ultimate destination for bidding on the latest electronics and gadgets. Discover incredible deals on top tech brands and score amazing bargains through competitive auctions. Join our community of savvy shoppers and get the best prices on the gadgets you love!",
-};
+  title: "BidMarket - Buy & Sell Refurbished Electronics",
+  description: "Premium marketplace for bidding on certified refurbished electronics from trusted sellers",
+  generator: "v0.app",
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${monteserrat.className} antialiased`}>
-        <Theme accentColor="ruby" grayColor="sand">
-          <Announcement />
-           <NavBar />
-          <div className="overflow-y-auto h-screen">
+    <html lang="en">
+      <body className={`font-sans antialiased`}> 
+        <AuthProvider>
+          <CartProvider>
+            <Navigation/>
             {children}
-          </div>
-        </Theme>
+             <Footer/>
+            </CartProvider>
+        </AuthProvider>
+        <Analytics />
       </body>
     </html>
-  );
+  )
 }
